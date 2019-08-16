@@ -1,15 +1,31 @@
-PoC for STF deployment on a single machine
-===========
+PoC for STF deployment on a vagrant
+
+---
+
 # Installation
 
-* install docker
-* install docker-compose
-* clone this repo
+1. Install Virtualbox and Vagrant to PC.
+2. Create a new directory on PC.
+    * ex. C:\vagrant\sample
+    * ex. /vagrant/sample
+3. Copy Vagrantfile of this repository in a new directory.
+4. Edit "change me" in Vagrantfile
+5. in new directory
+  * `$ vagrant up`
+  * `$ vagrant ssh`
+6. install docker
+7. install docker-compose
+8. clone this repository
 
 # Usage
-choose an IP your deployment should use, usually that will be the IP of your host.  
-choose a secret to be used for inter-service authentication.  
-Update the `.env` file accordingly
+
+choose an IP your deployment should use, usually that will be the IP of your host.
+choose a secret to be used for inter-service authentication.
+Update the `.env` file accordingly.
+
+* ex. PUBLIC_IP: your pc ip
+* ex. WEB_PORT: your PC port
+
 
 Run `docker-compose up -d --build`  
 Point your browser to the IP you chose,  
