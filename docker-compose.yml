@@ -37,7 +37,7 @@ services:
     environment:
       - RETHINKDB_PORT_28015_TCP
       - SECRET
-    command: stf app --auth-url http://${PUBLIC_IP}/auth/mock/ --websocket-url ws://${PUBLIC_IP}/ --port 3000
+    command: stf app --auth-url http://${PUBLIC_IP}:${WEB_PORT}/auth/mock/ --websocket-url ws://${PUBLIC_IP}:${WEB_PORT}/ --port 3000
     depends_on:
       - rethinkdb
       - auth
@@ -47,7 +47,7 @@ services:
     restart: unless-stopped
     environment:
       - SECRET
-    command: stf auth-mock --app-url http://${PUBLIC_IP}/ --port 3000
+    command: stf auth-mock --app-url http://${PUBLIC_IP}:${WEB_PORT}/ --port 3000
   processor:
     image: openstf/stf:latest
     restart: unless-stopped
@@ -76,7 +76,7 @@ services:
   provider:
     image: openstf/stf:latest
     restart: unless-stopped
-    command: stf provider --name ${STATION_NAME} --connect-sub tcp://dev-triproxy:7250 --connect-push tcp://dev-triproxy:7270 --storage-url http://${PUBLIC_IP}/ --public-ip ${PUBLIC_IP} --heartbeat-interval 10000 --screen-ws-url-pattern "ws://${PUBLIC_IP}/d/nuc/<%= serial %>/<%= publicPort %>/" --adb-host adb --min-port 7400 --max-port 7700
+    command: stf provider --name ${STATION_NAME} --connect-sub tcp://dev-triproxy:7250 --connect-push tcp://dev-triproxy:7270 --storage-url http://${PUBLIC_IP}/ --public-ip ${PUBLIC_IP} --heartbeat-interval 10000 --screen-ws-url-pattern "ws://${PUBLIC_IP}:${WEB_PORT}/d/nuc/<%= serial %>/<%= publicPort %>/" --adb-host adb --min-port 7400 --max-port 7700 --allow-remote
     ports:
       - 7400-7700:7400-7700
     depends_on:
